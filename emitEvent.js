@@ -1,3 +1,4 @@
+
 var EventEmitter = require("events").EventEmitter;
 var bomb = new EventEmitter();
 
@@ -9,4 +10,12 @@ bomb.on('boom',function(arg1) {
 console.log("emit boom");
 bomb.emit("boom","test");
 
+var MyEventEmitter = require("./lib/MyEventEmitter");
+var myEvent = new MyEventEmitter();  
+myEvent.on('test',function() {
+    console.log("myEvent test");
+});
+
+console.log("emit event");
+myEvent.emit("test");
 
