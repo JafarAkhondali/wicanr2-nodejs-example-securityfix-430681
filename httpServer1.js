@@ -6,6 +6,11 @@ var path = require('path');
 
 
 function process_get(req,res) {
+    var uri = url.parse(req.url).pathname;
+    var filename = path.join(process.cwd()+"/www", uri);
+
+    console.log("uri " + uri);
+
     var contentTypesByExtension = {
         '.html': "text/html",
         '.css':  "text/css",
@@ -21,6 +26,7 @@ function process_get(req,res) {
         }
         if ( fs.statSync(filename).isDirectory() ) 
             filename += "/index.html";
+
         fs.readFile(filename, "binary", function(err, file){
             if ( err ) {
                 res.writeHead(500, {"Content-Type":"text/plain"});
@@ -43,10 +49,7 @@ function process_get(req,res) {
 function create_http_server() 
 {
     http.createServer(function(req, res) {
-        var uri = url.parse(req.url).pathname;
-        var filename = path.join(process.cwd()+"/www", uri);
         console.log("req.method " + req.method);
-        console.log("uri " + uri);
         console.log("req.url " + req.url);
 
         if ( req.method == 'GET' ) {
