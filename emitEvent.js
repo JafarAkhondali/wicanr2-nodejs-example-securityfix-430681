@@ -17,5 +17,6 @@ myEvent.on('test',function() {
 });
 
 console.log("emit event");
+myEvent.init();
 myEvent.emit("test");
 
