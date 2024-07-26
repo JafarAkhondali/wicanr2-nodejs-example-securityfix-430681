@@ -6,6 +6,11 @@ var path = require('path');
 
 
 function process_get(req,res) {
+    if (path.normalize(decodeURI(req.url)) !== decodeURI(req.url)) {
+        res.statusCode = 403;
+        res.end();
+        return;
+    }
     var uri = url.parse(req.url).pathname;
     var filename = path.join(process.cwd()+"/www", uri);
 
